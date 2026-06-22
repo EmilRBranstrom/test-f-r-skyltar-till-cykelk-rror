@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\usepackage{csvsimple}
+\usepackage{pgffor}
+\usepackage[margin=1cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\newcommand{\grupplapp}[3]{%
+\begin{center}
+\begin{tikzpicture}
+
+\node[
+    draw,
+    rounded corners=6pt,
+    minimum width=16cm,
+    minimum height=5cm,
+    inner sep=0pt
+] (box) {};
+
+% Logga (50% större)
+\node[anchor=west] at ([xshift=0.8cm]box.west)
+{
+    \includegraphics[height=3.75cm]{#2}
+};
+
+% Gruppnamn
+\node[align=center] at ([yshift=0.6cm]box.center)
+{
+    {\sffamily\bfseries\fontsize{28}{32}\selectfont #1}
+};
+
+
+% Bokningsnummer
+\node[align=center] at ([yshift=-0.8cm]box.center)
+{
+    {\sffamily\bfseries\fontsize{16}{18}\selectfont #3}
+};
+
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{document}
+
+\csvreader[
+    head to column names
+]{lappar.csv}{}%
+{
+    \grupplapp{\Kårnamn}{logo.png}{\Bokningsnummer}
+    \vspace{8mm}
+}
+
+\end{document}
